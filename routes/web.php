@@ -20,21 +20,23 @@ Route::controller(Homecontroller::class)->group(function() {
 Route::controller(ClientController::class)->group(function() {
     Route::get('/category/{id}/{slug}', 'CategoryPage')->name('category');
     Route::get('/product-details/{id}/{slug}', 'Singleproduct')->name('singleproduct');
-    Route::get('/add-to-cart', 'AddTocart')->name('addtocart');
-    Route::get('/checkout', 'Checkout')->name('checkout');
-    Route::get('/user-profile', 'UserProfile')->name('userprofile');
     Route::get('/new-release', 'NewRelease')->name('newrelease');
-    Route::get('/todays-deal', 'TodaysDeal')->name('todaysdeal');
-    Route::get('/custom-service', 'CustomerService')->name('customerservice');
 });
 
-Route::middleware(['auth', 'role:user'])->group(function() {
+Route::middleware(['auth'])->group(function() {
     Route::controller(ClientController::class)->group(function() {
         Route::get('/add-to-cart', 'AddTocart')->name('addtocart');
+        Route::post('/add-product-to-cart', 'AddProductToCart')->name('addproducttocart');
+        Route::get('/shipping-address', 'GetShippingAddress')->name('shippingaddress');
+        Route::post('/add-shipping-address', 'AddshippingAddress')->name('addshippingaddress');
+        Route::post('/place-order', 'PlaceOrder')->name('placeorder');
         Route::get('/checkout', 'Checkout')->name('checkout');
         Route::get('/user-profile', 'UserProfile')->name('userprofile');
+        Route::get('/user-profile/pending-orders', 'PendingOrders')->name('pendingorder');
+        Route::get('/user-profile/history', 'History')->name('history');
         Route::get('/todays-deal', 'TodaysDeal')->name('todaysdeal');
         Route::get('/custom-service', 'CustomerService')->name('customerservice');
+        Route::get('/admin/remove-cart-itme/{id}', 'RemoveCartItem')->name('removecartitem');
     });
 });
 

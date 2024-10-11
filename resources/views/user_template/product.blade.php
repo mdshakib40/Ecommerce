@@ -23,7 +23,18 @@
                         <li>Available Quantity{{ ($product->quantity) }}</li>
                     </ul>
                 </div>
-                <div class="btn btn-warning"><a href="#">Add To Cart</a></div>
+                <div class="btn_main">
+                    <form action="{{ route('addproducttocart') }}" method="POST">
+                        @csrf
+                        <input type="hidden" value="{{$product->id }}" name="product_id">
+                        <div class="form-group">
+                            <input type="hidden" value="{{$product->price }}" name="price">
+                            <label for="quantity">How Many Pices ?</label>
+                            <input class="form-control" type="number" min="1" placeholder="1" name="quantity">
+                        </div>
+                        <input class="btn btn-warning" type="submit" value="Add To Cart">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -41,7 +52,16 @@
                                 <p class="price_text">Price :<span style="color: #262626;">{{ ($product->price) }}</span></p>
                                 <div class="tshirt_img"><img src="{{ asset($product->product_img) }}"></div>
                                 <div class="btn_main">
-                                   <div class="buy_bt"><a href="#">Buy Now</a></div>
+                                   <div class="buy_bt">
+                                    <form action="{{ route('addproducttocart') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" value="{{$product->id }}" name="product_id">
+                                        <input type="hidden" value="{{$product->price }}" name="price">
+                                        <input type="hidden" value="1" name="quantity">
+                                        <br>
+                                        <input class="btn btn-warning" type="submit" value="By Now">
+                                    </form>
+                                   </div>
                                    <div class="seemore_bt"><a href="{{ route('singleproduct', [$product->id, $product->slug]) }}">See More</a></div>
                                 </div>
                              </div>
